@@ -86,7 +86,9 @@ Flutter 多端独立短剧 / 影视应用，原名「短剧库 APP」。站源�
 
 推送 `main` 且 android / ios / windows 全部构建成功时，自动创建 / 更新 GitHub Release（tag `app-v{version}`）。发布新版本前需先在 `pubspec.yaml` 提升 `version`，否则会覆盖同名 tag 的 Release。
 
-Android 正式发布使用同一签名并递增构建号，在仓库 Secrets 配置：`ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、`ANDROID_KEY_ALIAS`、`ANDROID_KEY_PASSWORD`。未配置时生成 debug 签名预览包。
+Android 正式发布使用同一签名并递增构建号，在仓库 Secrets 配置：`ANDROID_KEYSTORE_BASE64`、`ANDROID_KEYSTORE_PASSWORD`、`ANDROID_KEY_ALIAS`、`ANDROID_KEY_PASSWORD`。未配置时生成 debug 签名预览包（debug 证书易被安全软件误报，仅供测试）。
+
+> **安全提示**：仓库历史曾误提交发布 keystore 及明文密码（`android/key.properties`、`duanju_release.keystore`）。该证书已视为泄露——任何人都能以它签名应用，杀毒软件会按证书信誉报毒。已删除相关文件，请各自生成私有签名并仅通过 Secrets 配置；用旧证书签名的包不要再分发。
 
 本地不入库的 `android/key.properties`：
 
